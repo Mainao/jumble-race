@@ -28,8 +28,8 @@ export default function RoomLobby({
             <header className="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-4 pb-3 flex items-center justify-between relative z-20">
                 <div className="flex items-center gap-3">
                     <div className="hidden sm:flex items-center gap-2 select-none">
-                        <span className="font-display font-extrabold text-xl tracking-tight text-ink">
-                            JUMBLE <span className="text-blue">RACE</span>
+                        <span className="font-display font-extrabold text-xl tracking-tight text-blue">
+                            JUMBLE <span className="text-pink">RACE</span>
                         </span>
                     </div>
                 </div>
@@ -57,9 +57,7 @@ export default function RoomLobby({
 
                                 <h1 className="font-display text-3xl sm:text-4xl font-black text-ink tracking-tight leading-tight">
                                     ROOM{" "}
-                                    <span className="text-blue">
-                                        {roomId}
-                                    </span>
+                                    <span className="text-blue">{roomId}</span>
                                 </h1>
                                 <p className="text-xs sm:text-sm text-slate-600 font-semibold mt-1">
                                     Share the code with your friends and hit
