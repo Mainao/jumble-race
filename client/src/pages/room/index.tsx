@@ -1,19 +1,95 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { leaveRoom } from "../../features/room/api/RoomSocket";
+import { useParams, useLocation } from "react-router-dom";
+import { useRoomSocket } from "@/features/room/hooks/useRoomSocket";
+import NameGateForm from "@/features/room/components/NameGateForm";
+import RoomLobby from "@/features/room/components/RoomLobby";
+import GameScreen from "@/features/room/components/GameScreen";
+import RoundResultsScreen from "@/features/room/components/RoundResultsScreen";
+import FinalResultsScreen from "@/features/room/components/FinalResultsScreen";
 
-export default function Room() {
+export default function RoomPage() {
     const { roomId } = useParams();
-    const navigate = useNavigate();
+    const location = useLocation();
+    // Hint only, used for the pre-join copy below — actual host status is
+    // server-authoritative and comes back on the player-list event.
+    const arrivedAsHost = Boolean(
+        (location.state as { isHost?: boolean })?.isHost,
+    );
 
-    const handleLeave = () => {
-        leaveRoom();
-        navigate("/");
-    };
+    const {
+        hasJoined,
+        nameInput,
+        setNameInput,
+        error,
+        players,
+        phase,
+        roundData,
+        roundResultsData,
+        finalScoresData,
+        isHost,
+        handleLeave,
+        handleCopy,
+        handleJoin,
+        handleStartGame,
+    } = useRoomSocket(roomId);
 
+    // ── Gate: ask for a player name before showing the room ──
+    if (!hasJoined) {
+        return (
+            <NameGateForm
+                roomId={roomId}
+                arrivedAsHost={arrivedAsHost}
+                nameInput={nameInput}
+                onNameInputChange={setNameInput}
+                error={error}
+                onSubmit={handleJoin}
+                onCancel={handleLeave}
+            />
+        );
+    }
+
+    // ── Game: rendered on the same route once the host starts the game ──
+    if (phase === "playing" && roundData) {
+        return (
+            <GameScreen
+                key={roundData.round}
+                roomId={roomId}
+                roundData={roundData}
+            />
+        );
+    }
+
+    if (phase === "round-results" && roundResultsData) {
+        return (
+            <RoundResultsScreen
+                round={roundResultsData.round}
+                totalRounds={roundData?.totalRounds ?? roundResultsData.round}
+                roundResults={roundResultsData.roundResults}
+                correctWords={roundResultsData.correctWords}
+            />
+        );
+    }
+
+    if (phase === "finished" && finalScoresData) {
+        return (
+            <FinalResultsScreen
+                finalScores={finalScoresData.finalScores}
+                isHost={isHost}
+                onPlayAgain={handleStartGame}
+                onBackToHome={handleLeave}
+            />
+        );
+    }
+
+    // ── Room content (only shown after the name is set) ──
     return (
-        <div>
-            <h1>Room: {roomId}</h1>
-            <button onClick={handleLeave}>Leave Room</button>
-        </div>
+        <RoomLobby
+            roomId={roomId}
+            players={players}
+            isHost={isHost}
+            error={error}
+            onLeave={handleLeave}
+            onCopy={handleCopy}
+            onStartGame={handleStartGame}
+        />
     );
 }

@@ -1,111 +1,132 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+@import "tailwindcss";
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+@theme {
+    --font-display: "Fredoka", cursive;
+    --font-sans: "Plus Jakarta Sans", sans-serif;
+    --color-cream: #faf8f5;
+    --color-ink: #18181b;
+    --color-blue: #3b66ff;
+    --color-pink: #ff2e93;
+    --color-yellow: #ffd214;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+.brutal-shadow {
+    box-shadow: 4px 4px 0px var(--color-ink);
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+.brutal-shadow-sm {
+    box-shadow: 2px 2px 0px var(--color-ink);
 }
 
-body {
-  margin: 0;
+.brutal-shadow-lg {
+    box-shadow: 6px 6px 0px var(--color-ink);
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+.brutal-shadow-xl {
+    box-shadow: 8px 8px 0px var(--color-ink);
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+.brutal-shadow-pink {
+    box-shadow: 6px 6px 0px var(--color-pink);
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+.brutal-shadow-blue {
+    box-shadow: 6px 6px 0px var(--color-blue);
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+.brutal-shadow-yellow {
+    box-shadow: 6px 6px 0px var(--color-yellow);
+}
+
+.brutal-btn {
+    transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.brutal-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--color-ink);
+}
+
+.brutal-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--color-ink);
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translateX(-2px);
+    }
+    20%,
+    80% {
+        transform: translateX(4px);
+    }
+    30%,
+    50%,
+    70% {
+        transform: translateX(-6px);
+    }
+    40%,
+    60% {
+        transform: translateX(6px);
+    }
+}
+
+.shake {
+    animation: shake 400ms ease-in-out;
+}
+
+/* Background graph grid as seen in the bottom left corner of the screenshot */
+.bg-graph-grid {
+    background-size: 28px 28px;
+    background-image:
+        linear-gradient(
+            to right,
+            color-mix(in srgb, var(--color-ink) 8%, transparent) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            to bottom,
+            color-mix(in srgb, var(--color-ink) 8%, transparent) 1px,
+            transparent 1px
+        );
+}
+
+.bg-dot-grid {
+    background-size: 20px 20px;
+    background-image: radial-gradient(
+        color-mix(in srgb, var(--color-ink) 12%, transparent) 1.5px,
+        transparent 1.5px
+    );
+}
+
+/* 3D Comic Text Shadows */
+.text-comic-blue {
+    color: var(--color-blue);
+    text-shadow:
+        -2px -2px 0 var(--color-ink),
+        2px -2px 0 var(--color-ink),
+        -2px 2px 0 var(--color-ink),
+        2px 2px 0 var(--color-ink),
+        4px 5px 0 var(--color-ink);
+}
+
+.text-comic-pink {
+    color: var(--color-pink);
+    text-shadow:
+        -2px -2px 0 var(--color-ink),
+        2px -2px 0 var(--color-ink),
+        -2px 2px 0 var(--color-ink),
+        2px 2px 0 var(--color-ink),
+        4px 5px 0 var(--color-ink);
+}
+
+.text-comic-yellow {
+    color: var(--color-yellow);
+    text-shadow:
+        -2px -2px 0 var(--color-ink),
+        2px -2px 0 var(--color-ink),
+        -2px 2px 0 var(--color-ink),
+        2px 2px 0 var(--color-ink),
+        4px 5px 0 var(--color-ink);
 }
