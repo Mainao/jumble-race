@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+import { Check, Copy } from "lucide-react";
 import { Button } from "@/ui/Button";
 import type { Player } from "@/features/room/lib/avatar";
 
@@ -20,6 +22,22 @@ export default function RoomLobby({
     onCopy,
     onStartGame,
 }: RoomLobbyProps) {
+    const [copied, setCopied] = useState(false);
+    const copiedTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    useEffect(() => {
+        return () => {
+            if (copiedTimeoutRef.current) clearTimeout(copiedTimeoutRef.current);
+        };
+    }, []);
+
+    const handleCopyClick = () => {
+        onCopy();
+        setCopied(true);
+        if (copiedTimeoutRef.current) clearTimeout(copiedTimeoutRef.current);
+        copiedTimeoutRef.current = setTimeout(() => setCopied(false), 2000);
+    };
+
     return (
         <div className="min-h-screen bg-cream text-ink relative overflow-x-hidden flex flex-col justify-between">
             <div className="absolute top-0 left-0 w-80 h-80 bg-graph-grid opacity-40 pointer-events-none -z-10" />
@@ -69,9 +87,19 @@ export default function RoomLobby({
                                 <Button
                                     variant="secondary"
                                     size="sm"
-                                    onClick={onCopy}
+                                    onClick={handleCopyClick}
                                 >
-                                    <span>Copy Code</span>
+                                    {copied ? (
+                                        <>
+                                            <Check size={14} />
+                                            <span>Copied!</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Copy size={14} />
+                                            <span>Copy Code</span>
+                                        </>
+                                    )}
                                 </Button>
                                 <Button variant="secondary" size="sm">
                                     <span>Share Link</span>
