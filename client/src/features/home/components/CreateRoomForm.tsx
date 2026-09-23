@@ -37,12 +37,13 @@ export function CreateRoomForm() {
                     </span>
                 </div>
 
-                <label className="block text-xs font-bold text-slate-600 mb-1.5">
-                    Room Code (Edit or generate new):
+                <label htmlFor="room-name" className="sr-only">
+                    Room Name:
                 </label>
 
                 <div className="relative flex items-center">
                     <Input
+                        id="room-name"
                         variant="code"
                         accent="yellow"
                         type="text"

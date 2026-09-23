@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { joinRoom, onRoomJoined, onJoinError } from "@/features/room/api/RoomSocket";
+import {
+    joinRoom,
+    onRoomJoined,
+    onJoinError,
+} from "@/features/room/api/RoomSocket";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Badge } from "@/ui/Badge";
@@ -12,7 +16,7 @@ export function JoinRoomForm() {
 
     useEffect(() => {
         const cleanupJoined = onRoomJoined((roomId) => {
-            navigate(`/room/${roomId}`, { state: { isHost: false } }); // 👈
+            navigate(`/room/${roomId}`, { state: { isHost: false } });
         });
         const cleanupError = onJoinError((message) => {
             setError(message);
@@ -46,12 +50,13 @@ export function JoinRoomForm() {
                     </span>
                 </div>
 
-                <label className="block text-xs font-bold text-slate-600 mb-1.5">
-                    Enter your friend's room code:
+                <label htmlFor="room-code" className="sr-only">
+                    Room Code:
                 </label>
 
                 <div className="relative flex items-center">
                     <Input
+                        id="room-code"
                         variant="code"
                         accent="blue"
                         type="text"
@@ -60,11 +65,16 @@ export function JoinRoomForm() {
                         placeholder="ENTER CODE"
                         maxLength={6}
                         className="text-blue placeholder:text-slate-300"
+                        aria-describedby={error ? "room-code-error" : undefined}
                     />
                 </div>
 
                 {error && (
-                    <p className="mt-2 text-xs font-bold text-rose-600">
+                    <p
+                        id="room-code-error"
+                        role="alert"
+                        className="mt-2 text-xs font-bold text-rose-600"
+                    >
                         {error}
                     </p>
                 )}
