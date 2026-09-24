@@ -2,7 +2,7 @@ import { io } from "./io";
 import { rooms, generateRoomId, toPlayerList } from "./rooms";
 import { startRound, checkRoundEnd, startPlayerWord } from "./game";
 import { MAX_PLAYERS, TOTAL_ROUNDS, WORDS_PER_ROUND, WORD_TIME_SECONDS } from "./config";
-import { pickGameWords } from "./words";
+import { getWordPool, shuffleWords } from "./wordPool";
 
 export function registerSocketHandlers() {
     io.on("connection", (socket) => {
@@ -76,7 +76,7 @@ export function registerSocketHandlers() {
             }
         );
 
-        socket.on("start-game", ({ roomId }: { roomId: string }) => {
+        socket.on("start-game", async ({ roomId }: { roomId: string }) => {
             const room = rooms.get(roomId);
 
             if (!room) {
@@ -92,7 +92,25 @@ export function registerSocketHandlers() {
                 return;
             }
 
-            const gameWordPool = pickGameWords(TOTAL_ROUNDS * WORDS_PER_ROUND);
+            const wordsNeeded = TOTAL_ROUNDS * WORDS_PER_ROUND;
+            let allWords: string[];
+            try {
+                allWords = await getWordPool();
+            } catch (err) {
+                console.error(`Failed to load word pool for room ${roomId}:`, err);
+                socket.emit("start-game-error", "Could not start game, please try again");
+                return;
+            }
+
+            if (allWords.length < wordsNeeded) {
+                console.log(
+                    `Start-game rejected: room ${roomId} needs ${wordsNeeded} words, only ${allWords.length} available`,
+                );
+                socket.emit("start-game-error", "Not enough words available to start a game");
+                return;
+            }
+
+            const gameWordPool = shuffleWords(allWords).slice(0, wordsNeeded);
             const cumulativeScores: Record<string, number> = {};
             for (const player of room.players) {
                 cumulativeScores[player.socketId] = 0;
