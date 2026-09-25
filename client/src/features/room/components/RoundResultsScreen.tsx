@@ -65,7 +65,9 @@ export default function RoundResultsScreen({
                 </div>
 
                 <p className="text-xs font-bold text-slate-400">
-                    Next round starting soon...
+                    {round >= totalRounds
+                        ? "Generating final results..."
+                        : "Next round starting soon..."}
                 </p>
             </div>
         </div>
