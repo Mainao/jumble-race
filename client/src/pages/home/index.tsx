@@ -38,17 +38,10 @@ export default function Home() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch relative">
                         <CreateRoomForm />
                         <div className="hidden md:flex absolute top-0 bottom-0 left-1/2 -translate-x-1/2 items-center justify-center pointer-events-none">
-                            <div className="w-0.5 h-full bg-ink/15 relative">
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white border-2 border-ink text-ink font-black text-xs flex items-center justify-center brutal-shadow-sm">
-                                    OR
-                                </div>
-                            </div>
+                            <div className="w-0.5 h-full bg-ink/15 relative"></div>
                         </div>
                         <div className="flex md:hidden items-center my-1">
                             <div className="flex-1 h-0.5 bg-ink/15" />
-                            <span className="px-3 text-xs font-black text-slate-400">
-                                OR
-                            </span>
                             <div className="flex-1 h-0.5 bg-ink/15" />
                         </div>
                         <JoinRoomForm />

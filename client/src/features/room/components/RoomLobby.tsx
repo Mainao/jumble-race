@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { Button } from "@/ui/Button";
 import type { Player } from "@/features/room/lib/avatar";
+import { Badge } from "@/ui/Badge";
 
 interface RoomLobbyProps {
     roomId: string | undefined;
@@ -68,9 +69,9 @@ export default function RoomLobby({
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div>
                                 <div className="flex items-center gap-2 mb-1">
-                                    <span className="inline-flex items-center gap-1.5 px-3 py-0.5 bg-pink text-white border-2 border-ink rounded-lg text-xs font-black uppercase tracking-wider brutal-shadow-sm">
+                                    <Badge variant="pink">
                                         {roomName && <span>{roomName}</span>}
-                                    </span>
+                                    </Badge>
                                     <span className="text-xs font-bold text-slate-500">
                                         {players.length}/8 Players Joined
                                     </span>
@@ -102,9 +103,6 @@ export default function RoomLobby({
                                             <span>Copy Code</span>
                                         </>
                                     )}
-                                </Button>
-                                <Button variant="secondary" size="sm">
-                                    <span>Share Link</span>
                                 </Button>
                             </div>
                         </div>

@@ -9,6 +9,7 @@ const badgeVariants = cva(
             variant: {
                 yellow: "bg-yellow text-ink",
                 blue: "bg-blue text-white",
+                pink: "bg-pink text-white",
             },
         },
         defaultVariants: {
@@ -18,15 +19,11 @@ const badgeVariants = cva(
 );
 
 interface BadgeProps
-    extends ComponentProps<"span">,
-        VariantProps<typeof badgeVariants> {}
+    extends ComponentProps<"span">, VariantProps<typeof badgeVariants> {}
 
 function Badge({ className, variant, children, ...props }: BadgeProps) {
     return (
-        <span
-            className={cn(badgeVariants({ variant }), className)}
-            {...props}
-        >
+        <span className={cn(badgeVariants({ variant }), className)} {...props}>
             {children}
         </span>
     );

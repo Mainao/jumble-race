@@ -1,4 +1,5 @@
 import type { FinalScoreEntry } from "@/features/room/api/RoomSocket";
+import { Badge } from "@/ui/Badge";
 import { Button } from "@/ui/Button";
 
 interface FinalResultsScreenProps {
@@ -24,9 +25,7 @@ export default function FinalResultsScreen({
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-graph-grid opacity-40 pointer-events-none -z-10" />
 
             <div className="w-full max-w-md sm:max-w-lg bg-white border-3 sm:border-4 border-ink rounded-2xl sm:rounded-3xl p-5 sm:p-7 brutal-shadow-lg text-center space-y-5 relative z-10">
-                <span className="inline-flex items-center gap-1.5 px-3 py-0.5 bg-yellow border-2 border-ink rounded-lg text-xs font-black uppercase tracking-wider brutal-shadow-sm">
-                    Game Over
-                </span>
+                <Badge variant="yellow">Game Over</Badge>
 
                 <h1 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-wide">
                     Final Standings
