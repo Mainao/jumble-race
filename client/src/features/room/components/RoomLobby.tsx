@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
 import { Check, Copy } from "lucide-react";
-import { Button } from "@/ui/Button";
+import { useEffect, useRef, useState } from "react";
+
 import type { Player } from "@/features/room/lib/avatar";
 import { Badge } from "@/ui/Badge";
+import { Button } from "@/ui/Button";
 
 interface RoomLobbyProps {
     roomId: string | undefined;

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+
 import {
-    submitWord,
     onWordResult,
     onWordTimeout,
     type RoundStartedPayload,
+    submitWord,
 } from "@/features/room/api/RoomSocket";
 import { cn } from "@/lib/cn";
 

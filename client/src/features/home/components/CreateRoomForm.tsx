@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { createRoom, onRoomCreated } from "@/features/room/api/RoomSocket";
+import { Badge } from "@/ui/Badge";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
-import { Badge } from "@/ui/Badge";
 
 export function CreateRoomForm() {
     const [roomName, setRoomName] = useState("");

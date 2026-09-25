@@ -1,10 +1,11 @@
-import { useParams, useLocation } from "react-router-dom";
-import { useRoomSocket } from "@/features/room/hooks/useRoomSocket";
+import { useLocation,useParams } from "react-router-dom";
+
+import FinalResultsScreen from "@/features/room/components/FinalResultsScreen";
+import GameScreen from "@/features/room/components/GameScreen";
 import NameGateForm from "@/features/room/components/NameGateForm";
 import RoomLobby from "@/features/room/components/RoomLobby";
-import GameScreen from "@/features/room/components/GameScreen";
 import RoundResultsScreen from "@/features/room/components/RoundResultsScreen";
-import FinalResultsScreen from "@/features/room/components/FinalResultsScreen";
+import { useRoomSocket } from "@/features/room/hooks/useRoomSocket";
 
 export default function RoomPage() {
     const { roomId } = useParams();
