@@ -10,8 +10,8 @@ export function CreateRoomForm() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const cleanup = onRoomCreated(({ roomId }) => {
-            navigate(`/room/${roomId}`, { state: { isHost: true } });
+        const cleanup = onRoomCreated(({ roomId, roomName }) => {
+            navigate(`/room/${roomId}`, { state: { isHost: true, roomName } });
         });
         return cleanup;
     }, [navigate]);
@@ -50,7 +50,7 @@ export function CreateRoomForm() {
                         value={roomName}
                         onChange={(e) => setRoomName(e.target.value)}
                         placeholder="Room name"
-                        maxLength={10}
+                        maxLength={30}
                     />
                 </div>
             </div>

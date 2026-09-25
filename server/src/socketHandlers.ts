@@ -45,7 +45,7 @@ export function registerSocketHandlers() {
 
             console.log(`Player ${socket.id} joined room ${roomId}`);
 
-            socket.emit("room-joined", roomId);
+            socket.emit("room-joined", { roomId, roomName: room.name });
         });
 
         socket.on(

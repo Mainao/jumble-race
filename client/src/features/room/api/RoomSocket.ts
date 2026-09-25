@@ -19,7 +19,9 @@ export function joinRoom(roomId: string) {
     socket.emit("join-room", roomId);
 }
 
-export function onRoomJoined(callback: (roomId: string) => void) {
+export function onRoomJoined(
+    callback: (data: { roomId: string; roomName: string }) => void,
+) {
     socket.on("room-joined", callback);
     return () => {
         socket.off("room-joined", callback);

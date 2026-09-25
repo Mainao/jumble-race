@@ -9,11 +9,11 @@ import FinalResultsScreen from "@/features/room/components/FinalResultsScreen";
 export default function RoomPage() {
     const { roomId } = useParams();
     const location = useLocation();
-    // Hint only, used for the pre-join copy below — actual host status is
-    // server-authoritative and comes back on the player-list event.
-    const arrivedAsHost = Boolean(
-        (location.state as { isHost?: boolean })?.isHost,
-    );
+    const locationState = location.state as
+        | { isHost?: boolean; roomName?: string }
+        | null;
+    const arrivedAsHost = Boolean(locationState?.isHost);
+    const roomName = locationState?.roomName;
 
     const {
         hasJoined,
@@ -84,6 +84,7 @@ export default function RoomPage() {
     return (
         <RoomLobby
             roomId={roomId}
+            roomName={roomName}
             players={players}
             isHost={isHost}
             error={error}

@@ -15,8 +15,8 @@ export function JoinRoomForm() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const cleanupJoined = onRoomJoined((roomId) => {
-            navigate(`/room/${roomId}`, { state: { isHost: false } });
+        const cleanupJoined = onRoomJoined(({ roomId, roomName }) => {
+            navigate(`/room/${roomId}`, { state: { isHost: false, roomName } });
         });
         const cleanupError = onJoinError((message) => {
             setError(message);
@@ -62,9 +62,8 @@ export function JoinRoomForm() {
                         type="text"
                         value={roomId}
                         onChange={(e) => setRoomId(e.target.value)}
-                        placeholder="ENTER CODE"
+                        placeholder="Enter code"
                         maxLength={6}
-                        className="text-blue placeholder:text-slate-300"
                         aria-describedby={error ? "room-code-error" : undefined}
                     />
                 </div>

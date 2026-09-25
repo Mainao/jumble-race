@@ -5,6 +5,7 @@ import type { Player } from "@/features/room/lib/avatar";
 
 interface RoomLobbyProps {
     roomId: string | undefined;
+    roomName: string | undefined;
     players: Player[];
     isHost: boolean;
     error: string;
@@ -15,6 +16,7 @@ interface RoomLobbyProps {
 
 export default function RoomLobby({
     roomId,
+    roomName,
     players,
     isHost,
     error,
@@ -27,7 +29,8 @@ export default function RoomLobby({
 
     useEffect(() => {
         return () => {
-            if (copiedTimeoutRef.current) clearTimeout(copiedTimeoutRef.current);
+            if (copiedTimeoutRef.current)
+                clearTimeout(copiedTimeoutRef.current);
         };
     }, []);
 
@@ -66,13 +69,12 @@ export default function RoomLobby({
                             <div>
                                 <div className="flex items-center gap-2 mb-1">
                                     <span className="inline-flex items-center gap-1.5 px-3 py-0.5 bg-pink text-white border-2 border-ink rounded-lg text-xs font-black uppercase tracking-wider brutal-shadow-sm">
-                                        <span>GAME ROOM LOBBY</span>
+                                        {roomName && <span>{roomName}</span>}
                                     </span>
                                     <span className="text-xs font-bold text-slate-500">
                                         {players.length}/8 Players Joined
                                     </span>
                                 </div>
-
                                 <h1 className="font-display text-3xl sm:text-4xl font-black text-ink tracking-tight leading-tight">
                                     ROOM{" "}
                                     <span className="text-blue">{roomId}</span>
