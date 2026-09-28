@@ -1,5 +1,7 @@
 import { io } from "socket.io-client";
 
-export const socket = io("http://localhost:8080", {
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:8080";
+
+export const socket = io(SERVER_URL, {
     autoConnect: false,
 });
