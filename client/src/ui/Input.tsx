@@ -8,7 +8,7 @@ const inputVariants = cva(
     {
         variants: {
             variant: {
-                code: "font-display border-[2.5px] py-3 px-4 font-black text-xl sm:text-2xl uppercase tracking-widest brutal-shadow-sm",
+                code: "font-display border-[2.5px] py-3 px-4 font-black text-xl sm:text-2xl tracking-widest brutal-shadow-sm",
                 text: "border-2 py-3 px-4 font-bold text-lg",
             },
             accent: {
